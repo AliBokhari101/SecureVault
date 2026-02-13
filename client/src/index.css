@@ -1,0 +1,226 @@
+@import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&family=Orbitron:wght@400;500;600;700;900&family=Fira+Code:wght@300;400;500;600&family=Audiowide&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-cyber-black text-cyber-white font-cyber antialiased;
+  }
+
+  * {
+    letter-spacing: 0.02em;
+  }
+}
+
+@layer components {
+
+  /* Cyber Card */
+  .cyber-card {
+    @apply bg-cyber-darkgray border-2 border-cyber-red-500 relative overflow-hidden;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px));
+  }
+
+  .cyber-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #FF0000, transparent);
+    animation: scanline 3s linear infinite;
+  }
+
+  /* Neon Border Card */
+  .neon-card {
+    @apply bg-cyber-gray border-2 border-cyber-red-500 relative;
+    box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
+  }
+
+  /* Cyber Button Primary */
+  .btn-cyber-primary {
+    @apply bg-cyber-red-500 text-cyber-white font-cyber font-bold px-6 py-3 border-2 border-cyber-red-600 uppercase tracking-wider relative overflow-hidden transition-all duration-200;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .btn-cyber-primary:hover {
+    @apply bg-cyber-red-600 transform scale-105;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+  }
+
+  .btn-cyber-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+    transition: left 0.5s;
+  }
+
+  .btn-cyber-primary:hover::before {
+    left: 100%;
+  }
+
+  /* Cyber Button Secondary */
+  .btn-cyber-secondary {
+    @apply bg-cyber-gray text-cyber-white font-cyber font-bold px-6 py-3 border-2 border-cyber-red-500 uppercase tracking-wider hover:bg-cyber-lightgray transition-all duration-200;
+    clip-path: polygon(8px 0, 100% 0, 100% calc(100% - 8px), calc(100% - 8px) 100%, 0 100%, 0 8px);
+  }
+
+  .btn-cyber-secondary:hover {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+
+  /* Cyber Input */
+  .input-cyber {
+    @apply w-full bg-cyber-gray border-2 border-cyber-lightgray px-4 py-3 text-cyber-white font-mono focus:outline-none focus:border-cyber-red-500 transition-all;
+    clip-path: polygon(6px 0, 100% 0, 100% calc(100% - 6px), calc(100% - 6px) 100%, 0 100%, 0 6px);
+  }
+
+  .input-cyber:focus {
+    box-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+
+  .input-cyber::placeholder {
+    @apply text-cyber-lightgray;
+  }
+
+  /* Stat Card */
+  .stat-card-cyber {
+    @apply cyber-card p-6 hover:border-cyber-red-600 transition-all duration-300 cursor-pointer;
+  }
+
+  .stat-card-cyber:hover {
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
+  }
+
+  /* Cyber Grid Background */
+  .cyber-grid-bg {
+    background-image:
+      linear-gradient(rgba(255, 0, 0, 0.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 20px 20px;
+  }
+
+  /* Neon Text - Reduced glow for readability */
+  .neon-text {
+    @apply text-cyber-red-500;
+    text-shadow: 0 0 5px rgba(255, 0, 0, 0.5), 0 0 10px rgba(255, 0, 0, 0.3);
+  }
+
+  /* Glitch Text */
+  .glitch-text {
+    position: relative;
+    display: inline-block;
+  }
+
+  .glitch-text:hover::before,
+  .glitch-text:hover::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .glitch-text:hover::before {
+    animation: glitch 0.3s infinite;
+    color: #FF006E;
+    z-index: -1;
+  }
+
+  .glitch-text:hover::after {
+    animation: glitch 0.3s infinite reverse;
+    color: #00FFFF;
+    z-index: -2;
+  }
+
+  /* Cyber Brackets */
+  .cyber-bracket::before {
+    content: '[ ';
+    @apply text-cyber-red-500 font-bold;
+  }
+
+  .cyber-bracket::after {
+    content: ' ]';
+    @apply text-cyber-red-500 font-bold;
+  }
+
+  /* Scanline Effect */
+  .scanline-effect {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline-effect::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5), transparent);
+    animation: scanline 8s linear infinite;
+  }
+
+  /* Corner Accent */
+  .corner-accent {
+    position: relative;
+  }
+
+  .corner-accent::before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    width: 20px;
+    height: 20px;
+    border-top: 3px solid #FF0000;
+    border-left: 3px solid #FF0000;
+  }
+
+  .corner-accent::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    width: 20px;
+    height: 20px;
+    border-bottom: 3px solid #FF0000;
+    border-right: 3px solid #FF0000;
+  }
+}
+
+@layer utilities {
+  .text-cyber-gradient {
+    @apply bg-gradient-to-r from-cyber-red-500 to-cyber-neon-red bg-clip-text text-transparent;
+  }
+}
+
+/* Scrollbar Cyberpunk Style */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-cyber-darkgray;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-cyber-red-500 border-2 border-cyber-black;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-cyber-red-600;
+}
+
+/* Selection */
+::selection {
+  @apply bg-cyber-red-500 text-cyber-white;
+}
