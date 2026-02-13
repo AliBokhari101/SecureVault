@@ -31,13 +31,11 @@ A production-ready full-stack application for secure file sharing with AES-256 e
 
 ### Backend
 - Node.js & Express.js
-- PostgreSQL
+- SQLite (better-sqlite3)
 - JWT (jsonwebtoken)
 - bcrypt
 - Multer (file uploads)
 - Node crypto (AES-256 encryption)
-- express-rate-limit
-- Helmet (security headers)
 
 ### Frontend
 - React 18
@@ -50,7 +48,6 @@ A production-ready full-stack application for secure file sharing with AES-256 e
 ## 📋 Prerequisites
 
 - Node.js (v16 or higher)
-- PostgreSQL (v12 or higher)
 - npm or yarn
 
 ## 🚀 Installation & Setup
@@ -58,26 +55,11 @@ A production-ready full-stack application for secure file sharing with AES-256 e
 ### 1. Clone the Repository
 
 ```bash
-cd d:/project/p1/securevault
+git clone https://github.com/AliBokhari101/SecureVault.git
+cd SecureVault
 ```
 
-### 2. Database Setup
-
-Create a PostgreSQL database:
-
-```sql
-CREATE DATABASE securevault;
-```
-
-Run the schema:
-
-```bash
-psql -U postgres -d securevault -f server/config/schema.sql
-```
-
-Or manually execute the SQL in `server/config/schema.sql`
-
-### 3. Backend Setup
+### 2. Backend Setup
 
 ```bash
 cd server
@@ -89,12 +71,6 @@ Create `.env` file (copy from `.env.example`):
 ```env
 PORT=5000
 NODE_ENV=development
-
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=securevault
-DB_USER=postgres
-DB_PASSWORD=your_password_here
 
 JWT_SECRET=your_super_secret_jwt_key_change_this_in_production_min_32_chars
 JWT_EXPIRE=24h
@@ -110,7 +86,7 @@ MAX_LOGIN_ATTEMPTS=5
 LOCK_TIME=900000
 
 RATE_LIMIT_WINDOW=900000
-RATE_LIMIT_MAX=5
+RATE_LIMIT_MAX=100
 
 CLIENT_URL=http://localhost:5173
 ```
@@ -125,7 +101,7 @@ npm start
 
 Server will run on `http://localhost:5000`
 
-### 4. Frontend Setup
+### 3. Frontend Setup
 
 ```bash
 cd client
@@ -138,7 +114,7 @@ Frontend will run on `http://localhost:5173`
 ## 👤 Default Admin Account
 
 - **Email**: admin@securevault.com
-- **Password**: admin123
+- **Password**: Admin1234
 
 **⚠️ Change this password immediately in production!**
 
@@ -148,8 +124,7 @@ Frontend will run on `http://localhost:5173`
 securevault/
 ├── server/
 │   ├── config/
-│   │   ├── db.js
-│   │   └── schema.sql
+│   │   └── db.js
 │   ├── controllers/
 │   │   ├── authController.js
 │   │   ├── fileController.js
@@ -173,19 +148,9 @@ securevault/
 ├── client/
 │   ├── src/
 │   │   ├── components/
-│   │   │   └── ProtectedRoute.jsx
 │   │   ├── context/
-│   │   │   └── AuthContext.jsx
 │   │   ├── pages/
-│   │   │   ├── Landing.jsx
-│   │   │   ├── Login.jsx
-│   │   │   ├── Register.jsx
-│   │   │   ├── Dashboard.jsx
-│   │   │   ├── FileManager.jsx
-│   │   │   ├── SharedFile.jsx
-│   │   │   └── AdminPanel.jsx
 │   │   ├── services/
-│   │   │   └── api.js
 │   │   ├── App.jsx
 │   │   ├── main.jsx
 │   │   └── index.css
@@ -225,7 +190,7 @@ securevault/
 ### Authentication
 - `POST /api/auth/register` - Register new user
 - `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user (protected)
+- `GET /api/auth/profile` - Get current user (protected)
 
 ### Files
 - `POST /api/files/upload` - Upload file (protected)
@@ -235,7 +200,7 @@ securevault/
 
 ### Sharing
 - `POST /api/share/create` - Create share link (protected)
-- `POST /api/share/:token/access` - Access shared file (public)
+- `GET /api/share/:token` - Access shared file (public)
 - `GET /api/share/:token/download` - Download shared file (public)
 - `GET /api/share/my-links` - Get user's share links (protected)
 - `DELETE /api/share/:id` - Delete share link (protected)
@@ -248,36 +213,11 @@ securevault/
 
 ## 🎨 UI Features
 
-- **Dark Theme**: Professional security-focused dark design
-- **Glassmorphism**: Modern glass-effect cards
+- **Cyberpunk Theme**: Professional security-focused Black & Red design
+- **Aesthetic UI**: Neon-style borders and glassmorphism
 - **Responsive**: Mobile-first design
 - **Animations**: Smooth Framer Motion animations
 - **Progress Tracking**: Real-time upload progress
-- **Toast Notifications**: User feedback for actions
-
-## 🚀 Deployment Considerations
-
-### Environment Variables
-- Generate strong random values for `JWT_SECRET` and `ENCRYPTION_KEY`
-- Use environment-specific database credentials
-- Set `NODE_ENV=production`
-
-### Database
-- Enable SSL connections
-- Set up regular backups
-- Use connection pooling
-
-### File Storage
-- Consider using cloud storage (AWS S3, Azure Blob) instead of local filesystem
-- Implement file cleanup for expired share links
-- Set up CDN for faster file delivery
-
-### Security
-- Enable HTTPS/TLS
-- Configure CORS properly
-- Set up firewall rules
-- Regular security audits
-- Monitor activity logs
 
 ## 📝 Future Enhancements
 
@@ -285,14 +225,8 @@ securevault/
 - [ ] File versioning
 - [ ] Folder organization
 - [ ] Bulk file operations
-- [ ] Advanced search and filtering
-- [ ] Email notifications
-- [ ] File preview (images, PDFs)
-- [ ] Drag & drop upload
 - [ ] Dark/light mode toggle
-- [ ] File integrity verification (SHA-256 hashing)
 - [ ] Cloud storage integration
-- [ ] Docker containerization
 
 ## 📄 License
 
@@ -300,8 +234,9 @@ MIT License
 
 ## 👨‍💻 Author
 
-Built with ❤️ for secure file sharing
+**Ali Bokhari**
+GitHub: [@AliBokhari101](https://github.com/AliBokhari101)
 
 ---
 
-**⚠️ Security Notice**: This is a demonstration project. For production use, conduct a thorough security audit, implement additional security measures, and follow best practices for your specific use case.
+**⚠️ Security Notice**: This is a demonstration project. For production use, conduct a thorough security audit and follow best practices.
